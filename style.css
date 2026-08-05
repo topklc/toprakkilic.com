@@ -1,39 +1,14 @@
-html {
-    background-color: #F2F0EF;
-}
-
 body {
+    background-color: #F2F0EF;
     font-family: Garamond, Georgia, serif;
-    max-width: 960px;
-    margin-inline: auto;
-    padding-inline: 24px;
-    margin-top: 40px;
     text-align: center;
-    color: #333333;
-}
-
-h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+    max-width: 960px;
+    margin: auto;
 }
 
 hr {
-    width: 65%;
-    border: none;
-    border-top: 2px solid lightgray;
-}
-
-p {
-    line-height: 1.6;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 10px;
+    border: 1px solid #d3d3d3;
+    width: 75%;
 }
 
 a {
@@ -43,4 +18,18 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+.blog {
+    text-align: justify;
+    hyphens: auto;
+}
+
+.socials {
+    word-spacing: 25px; 
+}
+
+.date {
+    text-align: left;
+    color: #666666;
 }
