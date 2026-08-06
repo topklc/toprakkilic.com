@@ -1,0 +1,55 @@
+;;
+;; Domain:     toprakkilic.com.
+;; Exported:   2026-08-06 09:54:44
+;;
+;; This file is intended for use for informational and archival
+;; purposes ONLY and MUST be edited before use on a production
+;; DNS server.  In particular, you must:
+;;   -- update the SOA record with the correct authoritative name server
+;;   -- update the SOA record with the contact e-mail address information
+;;   -- update the NS record(s) with the authoritative name servers for this domain.
+;;
+;; For further information, please consult the BIND documentation
+;; located on the following website:
+;;
+;; http://www.isc.org/
+;;
+;; And RFC 1035:
+;;
+;; http://www.ietf.org/rfc/rfc1035.txt
+;;
+;; Please note that we do NOT offer technical support for any use
+;; of this zone data, the BIND name server, or any other third-party
+;; DNS software.
+;;
+;; Use at your own risk.
+;; SOA Record
+toprakkilic.com	3600	IN	SOA	jack.ns.cloudflare.com. dns.cloudflare.com. 2053767668 10000 2400 604800 3600
+
+;; NS Records
+toprakkilic.com.	86400	IN	NS	jack.ns.cloudflare.com.
+toprakkilic.com.	86400	IN	NS	stella.ns.cloudflare.com.
+
+;; CAA Records
+toprakkilic.com.	1	IN	CAA	0 iodef "mailto:security@toprakkilic.com"
+
+;; CNAME Records
+mta-sts.toprakkilic.com.	1	IN	CNAME	website-cqq.pages.dev. ; cf_tags=cf-proxied:true
+openpgpkey.toprakkilic.com.	1	IN	CNAME	website-cqq.pages.dev. ; cf_tags=cf-proxied:true
+protonmail2._domainkey.toprakkilic.com.	1	IN	CNAME	protonmail2.domainkey.diwijcpcxisdqr7tqclabcawfat2klc2657liskg6f5rspolulkgq.domains.proton.ch. ; cf_tags=cf-proxied:false
+protonmail3._domainkey.toprakkilic.com.	1	IN	CNAME	protonmail3.domainkey.diwijcpcxisdqr7tqclabcawfat2klc2657liskg6f5rspolulkgq.domains.proton.ch. ; cf_tags=cf-proxied:false
+protonmail._domainkey.toprakkilic.com.	1	IN	CNAME	protonmail.domainkey.diwijcpcxisdqr7tqclabcawfat2klc2657liskg6f5rspolulkgq.domains.proton.ch. ; cf_tags=cf-proxied:false
+toprakkilic.com.	1	IN	CNAME	website-cqq.pages.dev. ; cf_tags=cf-proxied:true
+www.toprakkilic.com.	1	IN	CNAME	website-cqq.pages.dev. ; cf_tags=cf-proxied:true
+
+;; MX Records
+toprakkilic.com.	1	IN	MX	10 mail.protonmail.ch.
+toprakkilic.com.	1	IN	MX	20 mailsec.protonmail.ch.
+
+;; TXT Records
+534437865a24bf563fd2b28c5b9147ce99f80e8c.toprakkilic.com.	1	IN	TXT	"fccbd6554b77d45ec9472009225b3c1f8d36a756"
+_dmarc.toprakkilic.com.	1	IN	TXT	"v=DMARC1; p=reject; rua=mailto:dmarc@toprakkilic.com"
+_mta-sts.toprakkilic.com.	1	IN	TXT	"v=STSv1; id=1107202" ; ./well-known/mta-sts.txt
+_smtp._tls.toprakkilic.com.	1	IN	TXT	"v=TLSRPTv1; rua=mailto:tlsrpt@toprakkilic.com"
+toprakkilic.com.	1	IN	TXT	"v=spf1 include:_spf.protonmail.ch -all"
+toprakkilic.com.	1	IN	TXT	"protonmail-verification=c212607053e24c53f67054a01fb85a2b45e6699b"
