@@ -1,0 +1,10 @@
+toprakkilic.com {
+    root * /home/topklc/toprakkilic.com
+    encode
+    templates
+    file_server
+}
+
+www.toprakkilic.com {
+    redir https://toprakkilic.com{uri} permanent
+}
