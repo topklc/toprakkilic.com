@@ -1,10 +1,11 @@
-toprakkilic.com {
-    root * /home/topklc/toprakkilic.com
+toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
+    root * /srv/www/toprakkilic.com
     encode
-    templates
     file_server
+    @notpublic path /.git/* /Caddyfile /README.md /LICENSE /_headers /.gitignore
+    respond @notpublic 404
+    header /.well-known/openpgpkey/* Access-Control-Allow-Origin "*"
 }
-
 www.toprakkilic.com {
     redir https://toprakkilic.com{uri} permanent
 }
