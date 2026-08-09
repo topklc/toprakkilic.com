@@ -1,0 +1,30 @@
+(headers) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		Content-Security-Policy "default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		X-Frame-Options "DENY"
+		Permissions-Policy "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), browsing-topics=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), gamepad=(), geolocation=(), gyroscope=(), hid=(), identity-credentials-get=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(), midi=(), otp-credentials=(), payment=(), picture-in-picture=(), publickey-credentials-create=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), speaker-selection=(), storage-access=(), sync-xhr=(), usb=(), web-share=(), window-management=(), xr-spatial-tracking=()"
+	}
+}
+
+toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
+	root * /srv/www/toprakkilic.com
+	encode
+	import headers
+	@notpublic path /.git/* /Caddyfile /README.md /LICENSE /_headers /.gitignore /404.html /setup.sh /config/*
+	error @notpublic 404
+	header /.well-known/openpgpkey/* Access-Control-Allow-Origin "*"
+	file_server
+	handle_errors 404 {
+		import headers
+		rewrite * /404.html
+		file_server
+	}
+}
+
+www.toprakkilic.com {
+	import headers
+	redir https://toprakkilic.com{uri} permanent
+}

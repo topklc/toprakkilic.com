@@ -1,0 +1,48 @@
+$ORIGIN toprakkilic.com.
+$TTL 3600
+
+@   IN SOA  ns1.toprakkilic.com. hostmaster.toprakkilic.com. (
+                2026080901  ; serial (dateserial format)
+                3600        ; refresh (NOTIFY makes this a fallback)
+                900         ; retry
+                1209600     ; expire  14 days
+                3600        ; negative-response TTL
+                )
+
+; nameservers (glue records must also exist at the registrar)
+@   86400  IN NS     ns1.toprakkilic.com.
+@   86400  IN NS     ns2.toprakkilic.com.
+ns1 86400  IN A      185.194.142.111
+ns1 86400  IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
+ns2 86400  IN A      185.194.142.111 
+ns2 86400  IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
+
+; domain
+@          IN A      185.194.142.111
+@          IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
+www        IN CNAME  toprakkilic.com.
+
+; certificate issueance reporting
+@          IN CAA    0 iodef "mailto:security@toprakkilic.com"
+
+; email
+@          IN MX     10 mail.protonmail.ch.
+@          IN MX     20 mailsec.protonmail.ch.
+@          IN TXT    "v=spf1 include:_spf.protonmail.ch -all"
+@          IN TXT    "protonmail-verification=c212607053e24c53f67054a01fb85a2b45e6699b"
+_dmarc     IN TXT    "v=DMARC1; p=reject; rua=mailto:dmarc@toprakkilic.com"
+protonmail._domainkey   IN CNAME  protonmail.domainkey.diwijcpcxisdqr7tqclabcawfat2klc2657liskg6f5rspolulkgq.domains.proton.ch.
+protonmail2._domainkey  IN CNAME  protonmail2.domainkey.diwijcpcxisdqr7tqclabcawfat2klc2657liskg6f5rspolulkgq.domains.proton.ch.
+protonmail3._domainkey  IN CNAME  protonmail3.domainkey.diwijcpcxisdqr7tqclabcawfat2klc2657liskg6f5rspolulkgq.domains.proton.ch.
+
+; mta-sts and tslrpt
+; policy file at https://mta-sts.toprakkilic.com/.well-known/mta-sts.txt
+mta-sts    IN CNAME  toprakkilic.com.
+_mta-sts   IN TXT    "v=STSv1; id=1107202"
+_smtp._tls IN TXT    "v=TLSRPTv1; rua=mailto:tlsrpt@toprakkilic.com"
+
+; wkd
+openpgpkey IN CNAME  toprakkilic.com.
+
+; vertification
+534437865a24bf563fd2b28c5b9147ce99f80e8c  IN TXT  "fccbd6554b77d45ec9472009225b3c1f8d36a756"

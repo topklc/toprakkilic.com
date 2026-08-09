@@ -1,0 +1,5 @@
+Contact: mailto:security@toprakkilic.com
+Expires: 2027-01-01T00:00:00Z
+Encryption: https://toprakkilic.com/.well-known/openpgpkey/hu/xo7ja4rokfkyxf5pxejpxpuh79xozd6y
+Canonical: https://toprakkilic.com/.well-known/security.txt
+Preferred-Languages: en, tr
