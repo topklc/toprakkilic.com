@@ -44,5 +44,5 @@ _smtp._tls IN TXT    "v=TLSRPTv1; rua=mailto:tlsrpt@toprakkilic.com"
 ; wkd
 openpgpkey IN CNAME  toprakkilic.com.
 
-; vertification
+; verification
 534437865a24bf563fd2b28c5b9147ce99f80e8c  IN TXT  "fccbd6554b77d45ec9472009225b3c1f8d36a756"
