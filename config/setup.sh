@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# run as root: sudo bash setup.sh
+# run as root
 set -euo pipefail
 
 if [ "$(id -u)" -ne 0 ]; then
@@ -41,7 +41,7 @@ PermitRootLogin no
 KbdInteractiveAuthentication no
 AllowUsers admin
 EOF
-/usr/sbin/sshd -t || { echo "sshd config invalid — aborting before lockout"; exit 1; }
+/usr/sbin/sshd -t || { echo "sshd config invalid... aborting before lockout"; exit 1; }
 systemctl restart ssh
 
 # website init
@@ -49,7 +49,7 @@ mkdir -p /srv/www
 [ -d "$REPO/.git" ] || git clone https://github.com/topklc/toprakkilic.com "$REPO"
 chown -R admin:admin "$REPO"
 cp "$REPO/config/Caddyfile" /etc/caddy/Caddyfile
-caddy validate --config /etc/caddy/Caddyfile || { echo "Caddyfile invalid — aborting"; exit 1; }
+caddy validate --config /etc/caddy/Caddyfile || { echo "caddyfile invalid... aborting"; exit 1; }
 systemctl enable --now caddy fail2ban
 systemctl reload caddy
 
@@ -57,7 +57,7 @@ systemctl reload caddy
 bash "$REPO/config/deploy.sh"
 
 # final touches
-id -nG admin | grep -qw sudo || { echo "admin lacks sudo — NOT locking root"; exit 1; }
+id -nG admin | grep -qw sudo || { echo "admin lacks sudo... NOT locking root"; exit 1; }
 
 # verification
 read -rp "verify NOW ssh admin@<ip> works before closing this terminal [y/N] " ok
