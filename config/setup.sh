@@ -5,10 +5,10 @@ set -euo pipefail
 read -rp "paste ssh public key " PUBKEY
 
 # add user and prepare
-apt update
-apt upgrade -y
 id admin &>/dev/null || adduser admin
 usermod -aG sudo admin
+apt update
+apt upgrade -y
 
 # install
 apt install -y sudo caddy fail2ban ufw git unattended-upgrades knot
