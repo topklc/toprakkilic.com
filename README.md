@@ -38,7 +38,7 @@ sudo systemctl reload cadddy
 ```
 ## Key Rollovers
 
-ZSKs roll automatically every 30 days, the KSK never rolls on its own (`ksk-lifetime: 0`) and is generated during `setup.sh`. rolling it is manual and needs a new DS record at the registrar.
+ZSKs roll automatically every 30 days, the KSK never rolls on its own (`ksk-lifetime: 0`) and is generated during `setup.sh`. Rolling it is manual and needs a new DS record at the registrar.
 
 ## Using for your own site
 

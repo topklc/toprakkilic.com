@@ -3,6 +3,7 @@ set -euo pipefail
 
 # paste ssh key
 read -rp "paste ssh public key: " PUBKEY
+ssh-keygen -lf /dev/stdin <<<"$PUBKEY" >/dev/null || { echo "public key not valid restart script"; exit 1; }
 
 # add user and prepare
 id admin &>/dev/null || adduser admin
@@ -11,13 +12,13 @@ apt update
 apt upgrade -y
 
 # install
-sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
-sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-sudo chmod o+r /etc/apt/sources.list.d/caddy-stable.list
-sudo apt update
-sudo apt install -y git caddy knot fail2ban ufw unattended-upgrades
+chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+chmod o+r /etc/apt/sources.list.d/caddy-stable.list
+apt update
+apt install -y git caddy knot fail2ban ufw unattended-upgrades
 
 # firewall
 ufw default deny incoming
@@ -50,7 +51,7 @@ cp /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
 systemctl enable --now caddy fail2ban
 systemctl reload caddy
 
-# ksk key generation
+# tsig key for zone transfers
 if [ ! -s /etc/knot/keys.conf ]; then
 install -m 640 -g knot /dev/null /etc/knot/keys.conf
 printf 'key:\n  - id: xfer-key\n    algorithm: hmac-sha256\n    secret: "%s"\n' \

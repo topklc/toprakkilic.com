@@ -13,7 +13,7 @@ toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
 	root * /srv/www/toprakkilic.com
 	encode
 	import headers
-	@notpublic path /.git/* /Caddyfile /README.md /LICENSE /_headers /.gitignore /404.html /setup.sh /config/*
+	@notpublic path /.git/* /README.md /LICENSE /.gitignore /404.html /config/*
 	error @notpublic 404
 	header /.well-known/openpgpkey/* Access-Control-Allow-Origin "*"
 	file_server

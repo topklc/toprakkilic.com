@@ -22,7 +22,7 @@ a {
     text-decoration: none;
 }
 
-a:hover, .nownownow:hover {
+a:hover {
     text-decoration: underline;
 }
 
@@ -48,9 +48,4 @@ a:hover, .nownownow:hover {
 .date {
     text-align: left;
     color: #666666;
-}
-
-.nownownow {
-    color: #000000;
-    text-decoration: none;
 }
