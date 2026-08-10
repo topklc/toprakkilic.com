@@ -20,25 +20,30 @@ This script will...
 7. Initalize DNS and prompt to update DNSSEC records and nameservers
 8. Verify SSH login before locking root
 
+## Updating Server
+
+To update and serve new files after a new commit, simply running the command below is enough.
+```
+cd /srv/www/toprakkilic.com
+git pull
+```
+
+To update the Caddy config, edit `toprakkilic.com/config/Caddyfile` then on the server run:
+```
+caddy validate --config /srv/www/toprakkilic.com/config/Caddyfile
+sudo install -m 640 -o root -g caddy /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
+sudo systemctl reload caddy
+```
+
 ## Updating DNS
 
-To update the DNS, edit `config/toprakkilic.com.zone`, then on the server:
+To update the Knot DNS records, edit `toprakkilic.com/config/toprakkilic.com.zone` then on the server run:
 ```
 kzonecheck -o toprakkilic.com /srv/www/toprakkilic.com/config/toprakkilic.com.zone
 sudo install -m 640 -o knot -g knot /srv/www/toprakkilic.com/config/toprakkilic.com.zone /var/lib/knot/zones/toprakkilic.com.zone
 sudo knotc zone-reload toprakkilic.com
 ```
 
-## Updating Server
-
-When a new git commit is pushed, run:
-```
-cd /srv/www/toprakkilic.com
-sudo git pull
-caddy validate --config /srv/www/toprakkilic.com/config/Caddyfile
-sudo cp config/Caddyfile /etc/caddy/Caddyfile
-sudo systemctl reload caddy
-```
 ## Key Rollovers
 
 ZSKs roll automatically every 30 days, the KSK never rolls on its own (`ksk-lifetime: 0`) and is generated during `setup.sh`. Rolling it is manual and needs a new DS record at the registrar.

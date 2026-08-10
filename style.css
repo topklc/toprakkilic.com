@@ -26,11 +26,16 @@ a:hover {
     text-decoration: underline;
 }
 
-.now, .about, .cantfindpage {
+.now, .about {
     margin-top: 32px;
     text-align: justify;
     hyphens: auto;
     line-height: 2;
+}
+
+.cantfindpage {
+    line-height: 2;
+    margin-top: 32px;
 }
 
 .socials {
