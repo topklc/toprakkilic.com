@@ -10,7 +10,7 @@ id admin &>/dev/null || adduser admin
 usermod -aG sudo admin
 
 # prequisites and dependencies
-apt install -y debian-keyring debian-archive-keyring apt-transport-https ca-certificates
+apt install -y debian-keyring debian-archive-keyring apt-transport-https ca-certificates fastfetch
 
 ## caddy setup
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
