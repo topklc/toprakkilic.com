@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # paste ssh key
-read -rp "paste ssh public key " PUBKEY
+read -rp "paste ssh public key: " PUBKEY
 
 # add user and prepare
 id admin &>/dev/null || adduser admin
@@ -17,7 +17,7 @@ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo 
 sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 sudo chmod o+r /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update
-sudo apt install -y caddy fail2ban ufw git unattended-upgrades knot
+sudo apt install -y git caddy knot fail2ban ufw unattended-upgrades
 
 # firewall
 ufw default deny incoming
@@ -50,22 +50,31 @@ cp /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
 systemctl enable --now caddy fail2ban
 systemctl reload caddy
 
-# dns
+# ksk key generation
 if [ ! -s /etc/knot/keys.conf ]; then
 install -m 640 -g knot /dev/null /etc/knot/keys.conf
 printf 'key:\n  - id: xfer-key\n    algorithm: hmac-sha256\n    secret: "%s"\n' \
 "$(head -c 32 /dev/urandom | base64)" > /etc/knot/keys.conf
 fi
 
-# dns
+# dns setup
 cp /srv/www/toprakkilic.com/config/knot.conf /etc/knot/knot.conf
 install -D -m 640 -o knot -g knot \
 /srv/www/toprakkilic.com/config/toprakkilic.com.zone /var/lib/knot/zones/toprakkilic.com.zone
 systemctl enable knot
 systemctl restart knot
 
+# dns updating
+echo "glue ns1/ns2.toprakkilic.com records in registrar... "
+echo "ipv4... $(curl -fsS -4 https://ifconfig.co 2>/dev/null || echo 'none')"
+echo "ipv6... $(curl -fsS -6 https://ifconfig.co 2>/dev/null || echo 'none')"
+read -rp "press enter to continue... "
+echo "make sure to update regisrar DNSSEC records..."
+keymgr toprakkilic.com. ds
+read -rp "press enter to continue... "
+
 # verification
-read -rp "verify NOW ssh admin@<ip> works before closing this terminal [y/N] " ok
+read -rp "verify NOW ssh admin@<ip> works before closing this terminal... [y/N] " ok
 if [[ "$ok" == [yY] ]]; then
 passwd -l root
 echo "root locked"
