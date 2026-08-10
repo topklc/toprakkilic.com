@@ -17,8 +17,10 @@ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --d
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 chmod o+r /etc/apt/sources.list.d/caddy-stable.list
+wget -O /usr/share/keyrings/cznic-labs-pkg.gpg https://pkg.labs.nic.cz/gpg
+echo "deb [signed-by=/usr/share/keyrings/cznic-labs-pkg.gpg] https://pkg.labs.nic.cz/knot-dns trixie main" | sudo tee /etc/apt/sources.list.d/cznic-labs-knot-dns.list 
 apt update
-apt install -y git caddy knot fail2ban ufw unattended-upgrades
+apt install -y apt-transport-https ca-certificates git caddy fail2ban ufw unattended-upgrades knot knot-dnssecutils knot-dnsutils knot-keymgr
 
 # firewall
 ufw default deny incoming

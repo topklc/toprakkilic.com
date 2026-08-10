@@ -23,18 +23,20 @@ The script will...
 
 To update the DNS, edit `config/toprakkilic.com.zone`, then on the server:
 ```
-kzonecheck -o toprakkilic.com config/toprakkilic.com.zone
-sudo install -m 640 -o knot -g knot config/toprakkilic.com.zone /var/lib/knot/zones/toprakkilic.com.zone
+kzonecheck -o toprakkilic.com /srv/www/toprakkilic.com/config/toprakkilic.com.zone
+sudo install -m 640 -o knot -g knot /srv/www/toprakkilic.com/config/toprakkilic.com.zone /var/lib/knot/zones/toprakkilic.com.zone
 sudo knotc zone-reload toprakkilic.com
 ```
 
 ## Updating Server
 
-When a new git commit is pushed, in `/srv/www/toprakkilic.com`. run:
+When a new git commit is pushed, run:
 ```
+cd /srv/www/toprakkilic.com
 sudo git pull
-cp config/Caddyfile /etc/caddy/Caddyfile
-sudo systemctl reload cadddy
+caddy validate --config /srv/www/toprakkilic.com/config/Caddyfile
+sudo cp config/Caddyfile /etc/caddy/Caddyfile
+sudo systemctl reload caddy
 ```
 ## Key Rollovers
 

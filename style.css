@@ -9,7 +9,7 @@ body {
 
 h1 {
     font-size: 48px;
-    margin-bottom: 16px;
+    /* margin-bottom: 16px; */
 }
 
 hr {
@@ -26,15 +26,10 @@ a:hover {
     text-decoration: underline;
 }
 
-.now, .about {
+.now, .about, .cantfindpage {
     margin-top: 32px;
     text-align: justify;
     hyphens: auto;
-    line-height: 2;
-}
-
-.cantfindpage {
-    margin-top: 32px;
     line-height: 2;
 }
 
