@@ -6,10 +6,11 @@ This is my personal website, along with the server that runs it and an authorita
 
 Paste this into a terminal to setup the domain:
 ```
-wget https://raw.githubusercontent.com/topklc/toprakkilic.com/main/config/setup.sh && setup.sh
+wget https://raw.githubusercontent.com/topklc/toprakkilic.com/main/config/setup.sh && bash setup.sh
 ```
+**DO NOT PRESS CTRL+C TO COPY! DO CTRL+SHIFT+C**
 
-The script will...
+This script will...
 1. Prompt for SSH key to add
 2. Add the user "admin"
 3. Update and install required dependencies

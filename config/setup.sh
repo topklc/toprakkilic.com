@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # paste ssh key
-read -rp "paste ssh public key: " PUBKEY
-ssh-keygen -lf /dev/stdin <<<"$PUBKEY" >/dev/null || { echo "public key not valid restart script"; exit 1; }
+read -rp "paste ssh public key and press enter to continue... " PUBKEY
+ssh-keygen -lf /dev/stdin <<<"$PUBKEY" >/dev/null || { echo "public key not valid... "; exit 1; }
 
 # add user and prepare
 id admin &>/dev/null || adduser admin
@@ -72,15 +72,16 @@ echo "glue ns1/ns2.toprakkilic.com records in registrar... "
 echo "ipv4... $(curl -fsS -4 https://ifconfig.co 2>/dev/null || echo 'none')"
 echo "ipv6... $(curl -fsS -6 https://ifconfig.co 2>/dev/null || echo 'none')"
 read -rp "press enter to continue... "
-echo "make sure to update regisrar DNSSEC records..."
+echo "update DNS records, press enter to continue..."
 keymgr toprakkilic.com. ds
-read -rp "press enter to continue... "
+read -r
 
 # verification
 read -rp "verify NOW ssh admin@<ip> works before closing this terminal... [y/N] " ok
 if [[ "$ok" == [yY] ]]; then
 passwd -l root
-echo "root locked"
+echo "root locked... " 
+kill -HUP $PPID
 else
-echo "root NOT locked, when verified, run sudo passwd -l root"
+echo "root NOT locked, when verified, run sudo passwd -l root... "
 fi
