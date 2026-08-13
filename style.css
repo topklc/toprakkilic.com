@@ -9,7 +9,7 @@ body {
 
 h1 {
     font-size: 48px;
-    /* margin-bottom: 16px; */
+     margin-bottom: 16px;
 }
 
 hr {
@@ -48,4 +48,9 @@ a:hover {
 .date {
     text-align: left;
     color: #666666;
+}
+
+.uses ul {
+    list-style-position: inside;
+    padding-left: 0;
 }
