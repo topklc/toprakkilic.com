@@ -21,9 +21,12 @@ ns2 86400  IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
 @          IN A      185.194.142.111
 @          IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
 www        IN CNAME  toprakkilic.com.
+irc        IN CNAME  toprakkilic.com. ; added for irc
 
 ; certificate issueance reporting
 @          IN CAA    0 iodef "mailto:security@toprakkilic.com"
+@          IN CAA    0 issue "letsencrypt.org" 
+@          IN CAA    0 issue "sectigo.com"
 
 ; email
 @          IN MX     10 mail.protonmail.ch.

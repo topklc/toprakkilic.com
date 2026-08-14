@@ -9,8 +9,7 @@ ssh-keygen -lf /dev/stdin <<<"$PUBKEY" >/dev/null || { echo "public key not vali
 id admin &>/dev/null || adduser admin
 usermod -aG sudo admin
 
-# prequisites and dependencies
-apt install -y debian-keyring debian-archive-keyring apt-transport-https ca-certificates fastfetch
+# software
 
 ## caddy setup
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
@@ -25,7 +24,7 @@ echo "deb [signed-by=/usr/share/keyrings/cznic-labs-pkg.gpg] https://pkg.labs.ni
 ## software
 apt update
 apt upgrade -y
-apt install -y git caddy fail2ban ufw unattended-upgrades knot knot-dnssecutils knot-dnsutils knot-keymgr
+apt install -y git caddy fail2ban ufw unattended-upgrades knot knot-dnssecutils knot-dnsutils knot-keymgr debian-keyring debian-archive-keyring apt-transport-https ca-certificates fastfetch
 
 # firewall setup and init
 ufw default deny incoming
@@ -53,6 +52,7 @@ AllowUsers admin
 EOF
 /usr/sbin/sshd -t
 systemctl restart ssh
+fail2ban-client status sshd
 
 # website init
 [ -d /srv/www/toprakkilic.com/.git ] || git clone https://github.com/topklc/toprakkilic.com /srv/www/toprakkilic.com

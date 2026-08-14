@@ -5,11 +5,14 @@ body {
     max-width: 960px;
     margin: auto;
     padding: 32px;
+    min-height: calc(100dvh - 64px);
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
     font-size: 48px;
-     margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 hr {
@@ -27,7 +30,7 @@ a:hover {
 }
 
 .now, .about {
-    margin-top: 32px;
+    margin-top: 16px;
     text-align: justify;
     hyphens: auto;
     line-height: 2;
@@ -35,7 +38,7 @@ a:hover {
 
 .cantfindpage {
     line-height: 2;
-    margin-top: 32px;
+    margin-top: 16px;
 }
 
 .socials {
@@ -53,4 +56,11 @@ a:hover {
 .uses ul {
     list-style-position: inside;
     padding-left: 0;
+}
+
+.copyright {
+    margin-top: auto;
+    font-size: 12px;
+    padding-top: 16px;
+    position: relative;
 }

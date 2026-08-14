@@ -3,13 +3,19 @@
     <url>
         <loc>https://toprakkilic.com/index.html</loc>
         <changefreq>monthly</changefreq>
-        <lastmod>2026-08-07</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://toprakkilic.com/now.html</loc>
+        <loc>https://toprakkilic.com/subs/now.html</loc>
         <changefreq>weekly</changefreq>
-        <lastmod>2026-08-06</lastmod>
+        <lastmod>2026-08-10</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toprakkilic.com/subs/uses.html</loc>
+        <changefreq>weekly</changefreq>
+        <lastmod>2026-08-14</lastmod>
         <priority>0.8</priority>
     </url>
 </urlset>
