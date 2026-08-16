@@ -17,6 +17,7 @@ toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
 	error @notpublic 404
 	header /.well-known/openpgpkey/* Access-Control-Allow-Origin "*"
 	file_server
+	ext .html
 	handle_errors 404 {
 		import headers
 		rewrite * /404.html

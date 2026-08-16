@@ -21,7 +21,6 @@ ns2 86400  IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
 @          IN A      185.194.142.111
 @          IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
 www        IN CNAME  toprakkilic.com.
-irc        IN CNAME  toprakkilic.com. ; added for irc
 
 ; certificate issueance reporting
 @          IN CAA    0 iodef "mailto:security@toprakkilic.com"
@@ -49,3 +48,6 @@ openpgpkey IN CNAME  toprakkilic.com.
 
 ; verification
 534437865a24bf563fd2b28c5b9147ce99f80e8c  IN TXT  "fccbd6554b77d45ec9472009225b3c1f8d36a756"
+
+; ergo 
+irc        IN CNAME  toprakkilic.com.
