@@ -51,7 +51,7 @@ fail2ban-client status sshd
 # website init
 chown -R admin:admin /srv/www/toprakkilic.com
 install -m 640 -g admin /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
-systemctl enable --now caddy fail2ban
+systemctl enable --now caddy fail2ban php8.4-fpm
 systemctl reload caddy
 
 # dns
