@@ -29,7 +29,7 @@ a:hover {
     text-decoration: underline;
 }
 
-.now, .about {
+.now .about .files {
     margin-top: 16px;
     text-align: justify;
     hyphens: auto;
@@ -63,4 +63,9 @@ a:hover {
     font-size: 12px;
     padding-top: 16px;
     position: relative;
+}
+
+.subs, .subs:hover {
+    color: #000000;
+    text-decoration: none;
 }

@@ -13,11 +13,22 @@ toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
 	root * /srv/www/toprakkilic.com
 	encode
 	import headers
-	@notpublic path /.git/* /README.md /LICENSE /.gitignore /404.html /config/*
+	@notpublic path /.git/* /README.md /LICENSE /.gitignore /404.html /config/* /style.css
 	error @notpublic 404
 	header /.well-known/openpgpkey/* Access-Control-Allow-Origin "*"
+
+	redir /index.html / permanent
+	redir /subs/now.html /now permanent
+	redir /subs/now /now permanent
+	redir /files/files.html /files permanent
+	@html path_regexp html ^/(.*)\.html$
+	redir @html /{re.html.1} permanent
+	try_files {path} {path}.html /subs{path}.html
+
 	file_server
-	ext .html
+
+	php_fastcgi unix//run/php/php-fpm.sock
+
 	handle_errors 404 {
 		import headers
 		rewrite * /404.html
