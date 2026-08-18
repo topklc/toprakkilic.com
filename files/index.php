@@ -17,7 +17,7 @@
     </div>
     <div class="files">
             <?php
-            // lists all files in directory
+            // lists all files in directory, future recursive support.
             $dir = '../files/';
             $files = array_diff(scandir($dir), ['.', '..', basename(__FILE__)]);
             natsort($files);

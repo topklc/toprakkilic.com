@@ -46,12 +46,13 @@ chmod 600 /home/admin/.ssh/authorized_keys
 install -o root -g admin -m 640 /srv/www/toprakkilic.com/config/00-hardening.conf /etc/ssh/sshd_config.d/00-hardening.conf
 /usr/sbin/sshd -t
 systemctl restart ssh
+systemctl enable --now fail2ban
 fail2ban-client status sshd
 
 # website init
 chown -R admin:admin /srv/www/toprakkilic.com
 install -m 640 -g admin /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
-systemctl enable --now caddy fail2ban php8.4-fpm
+systemctl enable --now caddy php8.4-fpm
 systemctl reload caddy
 
 # dns

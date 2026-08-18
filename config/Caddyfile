@@ -10,13 +10,19 @@
 }
 
 toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
+	# basic server init
 	root * /srv/www/toprakkilic.com
 	encode
 	import headers
+	file_server
+	php_fastcgi unix//run/php/php8.4-fpm.sock
+
+	# closing off not needed files
 	@notpublic path /.git/* /README.md /LICENSE /.gitignore /404.html /config/*
 	error @notpublic 404
 	header /.well-known/openpgpkey/* Access-Control-Allow-Origin "*"
 
+	# redircecting subdomains and file extensions to normal links
 	redir /index.html / permanent
 	redir /subs/now.html /now permanent
 	redir /subs/uses.html /uses permanent
@@ -26,16 +32,14 @@ toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
 	redir @html /{re.html.1} permanent
 	try_files {path} {path}.html /subs{path}.html
 
+	# http download for files folder
 	@downloads {
 	path /files/*
 	not path /files/ /files/index.php
 	}
 	header @downloads Content-Disposition attachment
 
-	file_server
-
-	php_fastcgi unix//run/php/php8.4-fpm.sock
-
+	# 404
 	handle_errors 404 {
 		import headers
 		rewrite * /404.html

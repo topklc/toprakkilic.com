@@ -7,13 +7,19 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://toprakkilic.com/subs/now.html</loc>
+        <loc>https://toprakkilic.com/now</loc>
         <changefreq>weekly</changefreq>
         <lastmod>2026-08-10</lastmod>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://toprakkilic.com/subs/uses.html</loc>
+        <loc>https://toprakkilic.com/uses</loc>
+        <changefreq>weekly</changefreq>
+        <lastmod>2026-08-14</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toprakkilic.com/files</loc>
         <changefreq>weekly</changefreq>
         <lastmod>2026-08-14</lastmod>
         <priority>0.8</priority>
