@@ -27,7 +27,7 @@ echo "deb [signed-by=/usr/share/keyrings/cznic-labs-pkg.gpg] https://pkg.labs.ni
 ## software
 apt update
 apt upgrade -y
-apt install -y git caddy fail2ban ufw unattended-upgrades knot knot-dnssecutils knot-dnsutils knot-keymgr debian-keyring debian-archive-keyring apt-transport-https ca-certificates php-cli fastfetch
+apt install -y git caddy fail2ban ufw unattended-upgrades knot knot-dnssecutils knot-dnsutils knot-keymgr debian-keyring debian-archive-keyring apt-transport-https ca-certificates php-fpm php-cli fastfetch
 [ -d /srv/www/toprakkilic.com/.git ] || git clone https://github.com/topklc/toprakkilic.com /srv/www/toprakkilic.com
 
 # security config
