@@ -11,6 +11,9 @@ usermod -aG sudo admin
 
 # installing
 
+## install gpg
+apt install gpg -y
+
 ## caddy setup
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
@@ -51,7 +54,7 @@ fail2ban-client status sshd
 
 # website init
 chown -R admin:admin /srv/www/toprakkilic.com
-install -m 640 -g admin /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
+install -m 640 -o root -g caddy /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
 systemctl enable --now caddy php8.4-fpm
 systemctl reload caddy
 
