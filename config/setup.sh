@@ -55,14 +55,13 @@ systemctl enable --now fail2ban
 fail2ban-client status sshd
 
 # website init
-chown -R www-data:www-data /etc/caddy/
-chmod 640 /etc/caddy/Caddyfile
+chown -R admin:admin /srv/www/toprakkilic.com
+chown -R root:root /etc/caddy
 chmod 755 /etc/caddy
-chown -R www-data:www-data /srv/www/toprakkilic.com
-install -m 640 -g www-data /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
-systemctl enable --now caddy php8.4-fpm
-systemctl reload caddy
-
+install -m 640 -o root -g caddy /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
+usermod -aG www-data caddy
+systemctl enable --now php8.4-fpm caddy
+systemctl restart caddy
 # dns
 
 ## tsig keygen for zone transfers
