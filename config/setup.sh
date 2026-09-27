@@ -42,7 +42,9 @@ ufw allow 53
 ufw --force enable
 
 ## ssh
-install -d -m 700 -o admin -g admin /home/admin/.ssh
+install -d -m 700 -o admin -g admin /home/admin/.sshchown root:caddy /etc/caddy/Caddyfile
+chmod 640 /etc/caddy/Caddyfile
+chmod 755 /etc/caddy
 echo "$PUBKEY" > /home/admin/.ssh/authorized_keys
 chown admin:admin /home/admin/.ssh/authorized_keys
 chmod 600 /home/admin/.ssh/authorized_keys
@@ -53,8 +55,11 @@ systemctl enable --now fail2ban
 fail2ban-client status sshd
 
 # website init
-chown -R admin:admin /srv/www/toprakkilic.com
-install -m 640 -o root -g caddy /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
+chown -R www-data:www-data /etc/caddy/
+chmod 640 /etc/caddy/Caddyfile
+chmod 755 /etc/caddy
+chown -R www-data:www-data /srv/www/toprakkilic.com
+install -m 640 -g www-data /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
 systemctl enable --now caddy php8.4-fpm
 systemctl reload caddy
 
