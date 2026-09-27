@@ -42,16 +42,13 @@ ufw allow 53
 ufw --force enable
 
 ## ssh
-install -d -m 700 -o admin -g admin /home/admin/.sshchown root:caddy /etc/caddy/Caddyfile
-chmod 640 /etc/caddy/Caddyfile
-chmod 755 /etc/caddy
-echo "$PUBKEY" > /home/admin/.ssh/authorized_keys
-chown admin:admin /home/admin/.ssh/authorized_keys
-chmod 600 /home/admin/.ssh/authorized_keys
-install -o root -g admin -m 640 /srv/www/toprakkilic.com/config/00-hardening.conf /etc/ssh/sshd_config.d/00-hardening.conf
+install -d -m 700 -o admin -g admin /home/admin/.ssh
+printf '%s\n' "$PUBKEY" | install -m 600 -o admin -g admin /dev/stdin /home/admin/.ssh/authorized_keys
+install -m 644 -o root -g root /srv/www/toprakkilic.com/config/00-hardening.conf /etc/ssh/sshd_config.d/00-hardening.conf
 /usr/sbin/sshd -t
 systemctl restart ssh
 systemctl enable --now fail2ban
+for i in {1..10}; do fail2ban-client ping &>/dev/null && break; sleep 1; done
 fail2ban-client status sshd
 
 # website init
