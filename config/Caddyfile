@@ -28,9 +28,8 @@ toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
 	redir /subs/uses.html /uses permanent
 	redir /files/index.php /files permanent
 	rewrite /files /files/index.php
-	@html path_regexp html ^/(.*)\.html$
-	redir @html /{re.html.1} permanent
-	try_files {path} {path}.html /subs{path}.html
+	rewrite /now /subs/now.html
+	rewrite /uses /subs/uses.html
 
 	# http download for files folder
 	@downloads {
