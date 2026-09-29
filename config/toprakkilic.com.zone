@@ -12,14 +12,14 @@ $TTL 3600
 ; nameservers (glue records must also exist at the registrar)
 @   86400  IN NS     ns1.toprakkilic.com.
 @   86400  IN NS     ns2.toprakkilic.com.
-ns1 86400  IN A      185.194.142.111
-ns1 86400  IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
+ns1 86400  IN A      142.248.111.119
+ns1 86400  IN AAAA   2602:f761:40:ffff:be24:11ff:fecc:3feb
 ns2 86400  IN A      185.194.142.111 
 ns2 86400  IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
 
 ; domain
-@          IN A      185.194.142.111
-@          IN AAAA   2a03:4000:1c:32:d884:36ff:fedd:6dea
+@          IN A      142.248.111.119
+@          IN AAAA   2602:f761:40:ffff:be24:11ff:fecc:3feb
 www        IN CNAME  toprakkilic.com.
 
 ; certificate issueance reporting
