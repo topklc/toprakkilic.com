@@ -73,6 +73,7 @@ cp /srv/www/toprakkilic.com/config/knot.conf /etc/knot/knot.conf
 install -D -m 640 -o knot -g knot \
 /srv/www/toprakkilic.com/config/toprakkilic.com.zone /var/lib/knot/zones/toprakkilic.com.zone
 systemctl enable knot
+knotc -c /etc/knot/knot.conf conf-check
 systemctl restart knot
 
 ## regisrar updates
