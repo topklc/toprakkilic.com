@@ -1,0 +1,7 @@
+sudo apt install sudo apt install php8.4-fpm php8.4-gd php8.4-mbstring php8.4-xml php8.4-sqlite3 php8.4-zip php8.4-curl php8.4-opcache
+version=1.2.54
+wget https://github.com/kanboard/kanboard/archive/v$version.tar.gz
+tar xzvf v$version.tar.gz -C /var/www/html/
+chown -R www-data:www-data /var/www/html/kanboard-$version/data
+rm v$version.tar.gz
+sudo systemctl restart php8.4-fpm
