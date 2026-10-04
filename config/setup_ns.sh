@@ -36,7 +36,7 @@ apt install -y fail2ban ufw unattended-upgrades knot knot-dnssecutils knot-dnsut
 
 # security config
 
-## firewall (ns2 serves dns only — no web ports)
+## firewall
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow 22/tcp

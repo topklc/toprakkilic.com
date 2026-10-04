@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Files</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="introduction">
+        <h1><a href="/" class="subs">Toprak Kilic</a></h1>
+        <h3>Index of {{html .Path}}</h3>
+        <hr>
+    </div>
+    <div class="files">
+        {{if .CanGoUp}}<a href="../">../</a><br>{{end}}
+        {{range .Items}}
+        <a href="{{html .URL}}">{{html .Name}}{{if .IsDir}}/{{end}}</a><br>
+        {{end}}
+    </div>
+    <div class="copyright">
+        <hr>
+        <p>© 2026 Toprak Kilic, all rights reserved.</p>
+    </div>
+</body>
+</html>

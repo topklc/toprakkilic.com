@@ -12,40 +12,37 @@
 	}
 }
 
-toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
+toprakkilic.com {
 	# basic server init
 	root * /srv/www/toprakkilic.com
 	encode
 	import headers
-	file_server
-	php_fastcgi unix//run/php/php8.4-fpm.sock
+	import csp *
 
-	# exempt kanboard (it sends its own csp)
-	@site not path /kanboard /kanboard/*
-	import csp @site
+	# directory listing for /files/, plain file server for everything else
+	file_server /files/* {
+		browse /srv/www/toprakkilic.com/config/browse.html
+		hide .*
+	}
+	file_server
 
 	# restricted access to non-public files
-	@notpublic path /.git/* /README.md /LICENSE /.gitignore /404.html /config/*
+	@notpublic path /.git/* /README.md /LICENSE /.gitignore /404.html /config/* /kanboard /kanboard/* *.php
 	error @notpublic 404
 	header /.well-known/openpgpkey/* Access-Control-Allow-Origin "*"
 
-	# kanboard internals
-	@kbblocked path /kanboard/data/* /kanboard/app/* /kanboard/libs/* /kanboard/vendor/* /kanboard/tests/* /kanboard/.* /kanboard/config.php
-	error @kbblocked 404
-
-	# redircecting subdomains and file extensions to normal links
+	# redirects and clean urls
 	redir /index.html / permanent
-	redir /subs/now.html /now permanent
-	redir /subs/uses.html /uses permanent
-	redir /files/index.php /files permanent
-	rewrite /files /files/index.php
-	rewrite /now /subs/now.html
-	rewrite /uses /subs/uses.html
+	redir /paths/now.html /now permanent
+	redir /paths/uses.html /uses permanent
+	redir /files /files/
+	rewrite /now /paths/now.html
+	rewrite /uses /paths/uses.html
 
-	# http download for files folder
+	# force download for files, but not for directory listings
 	@downloads {
 		path /files/*
-		not path /files/ /files/index.php
+		not path */
 	}
 	header @downloads Content-Disposition attachment
 
@@ -55,6 +52,35 @@ toprakkilic.com, mta-sts.toprakkilic.com, openpgpkey.toprakkilic.com {
 		import csp *
 		rewrite * /404.html
 		file_server
+	}
+}
+
+# mta-sts
+mta-sts.toprakkilic.com {
+	root * /srv/www/toprakkilic.com
+	import headers
+	import csp *
+
+	handle /.well-known/mta-sts.txt {
+		file_server
+	}
+	handle {
+		respond 404
+	}
+}
+
+# wkd advanced method
+openpgpkey.toprakkilic.com {
+	root * /srv/www/toprakkilic.com
+	import headers
+	import csp *
+	header Access-Control-Allow-Origin "*"
+
+	handle /.well-known/openpgpkey/* {
+		file_server
+	}
+	handle {
+		respond 404
 	}
 }
 

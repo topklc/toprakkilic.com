@@ -65,7 +65,7 @@ a:hover {
     position: relative;
 }
 
-.subs, .subs:hover {
+.paths, .paths:hover {
     color: #000000;
     text-decoration: none;
 }
