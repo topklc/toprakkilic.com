@@ -1,7 +1,9 @@
+# csp for everything except kanboard
 (csp) {
 	header {args[0]} Content-Security-Policy "default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
 }
 
+# security headers
 (headers) {
 	header {
 		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
@@ -9,6 +11,8 @@
 		Referrer-Policy "no-referrer"
 		X-Frame-Options "DENY"
 		Permissions-Policy "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), browsing-topics=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), gamepad=(), geolocation=(), gyroscope=(), hid=(), identity-credentials-get=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(), midi=(), otp-credentials=(), payment=(), picture-in-picture=(), publickey-credentials-create=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), speaker-selection=(), storage-access=(), sync-xhr=(), usb=(), web-share=(), window-management=(), xr-spatial-tracking=()"
+		# browsers always check for a newer version first, no more stale pages
+		Cache-Control "no-cache"
 	}
 }
 
@@ -17,7 +21,22 @@ toprakkilic.com {
 	root * /srv/www/toprakkilic.com
 	encode
 	import headers
-	import csp *
+
+	# exempt kanboard (it sends its own csp)
+	@site not path /kanboard /kanboard/*
+	import csp @site
+
+	# kanboard (only place with php)
+	handle /kanboard* {
+		root * /srv/www
+
+		# kanboard internals, nobody needs these
+		@kbblocked path /kanboard/data/* /kanboard/app/* /kanboard/libs/* /kanboard/vendor/* /kanboard/tests/* /kanboard/.* /kanboard/config.php /kanboard/cli
+		error @kbblocked 404
+
+		php_fastcgi unix//run/php/php8.4-fpm.sock
+		file_server
+	}
 
 	# directory listing for /files/, plain file server for everything else
 	file_server /files/* {
@@ -26,8 +45,8 @@ toprakkilic.com {
 	}
 	file_server
 
-	# restricted access to non-public files
-	@notpublic path /.git/* /README.md /LICENSE /.gitignore /404.html /config/* /kanboard /kanboard/* *.php
+	# restricted access to non-public files, and no php outside kanboard
+	@notpublic path /.git/* /README.md /LICENSE /.gitignore /404.html /config/* *.php
 	error @notpublic 404
 	header /.well-known/openpgpkey/* Access-Control-Allow-Origin "*"
 
@@ -46,8 +65,13 @@ toprakkilic.com {
 	}
 	header @downloads Content-Disposition attachment
 
-	# 404
+	# listings use the folder's timestamp so browsers keep old pages, kill it
+	@listing path_regexp ^/files/(.*/)?$
+	header @listing -Last-Modified
+
+	# 404 (root reset since kanboard swaps it)
 	handle_errors 404 {
+		root * /srv/www/toprakkilic.com
 		import headers
 		import csp *
 		rewrite * /404.html
@@ -55,7 +79,7 @@ toprakkilic.com {
 	}
 }
 
-# mta-sts
+# mta-sts 
 mta-sts.toprakkilic.com {
 	root * /srv/www/toprakkilic.com
 	import headers
@@ -84,6 +108,7 @@ openpgpkey.toprakkilic.com {
 	}
 }
 
+# www goes to the main domain
 www.toprakkilic.com {
 	import headers
 	redir https://toprakkilic.com{uri} permanent
