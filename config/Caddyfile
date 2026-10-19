@@ -26,18 +26,6 @@ toprakkilic.com {
 	@site not path /kanboard /kanboard/*
 	import csp @site
 
-	# kanboard (only place with php)
-	handle /kanboard* {
-		root * /srv/www
-
-		# kanboard internals, nobody needs these
-		@kbblocked path /kanboard/data/* /kanboard/app/* /kanboard/libs/* /kanboard/vendor/* /kanboard/tests/* /kanboard/.* /kanboard/config.php /kanboard/cli
-		error @kbblocked 404
-
-		php_fastcgi unix//run/php/php8.4-fpm.sock
-		file_server
-	}
-
 	# directory listing for /files/, plain file server for everything else
 	file_server /files/* {
 		browse /srv/www/toprakkilic.com/config/browse.html
@@ -108,8 +96,22 @@ openpgpkey.toprakkilic.com {
 	}
 }
 
+# caldav and carddav
 radicale.toprakkilic.com {
 	reverse_proxy 127.0.0.1:5232
+}
+
+# kanboard
+kanboard.toprakkilic.com {
+	root * /srv/www/kanboard
+	encode
+
+	# kanboard internals
+	@kbblocked path /data/* /app/* /libs/* /vendor/* /tests/* /.* /config.php /cli
+	error @kbblocked 404
+
+	php_fastcgi unix//run/php/php8.4-fpm.sock
+	file_server
 }
 
 # www goes to the main domain
