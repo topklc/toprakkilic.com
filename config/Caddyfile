@@ -108,6 +108,10 @@ openpgpkey.toprakkilic.com {
 	}
 }
 
+radicale.toprakkilic.com {
+	reverse_proxy 127.0.0.1:5232
+}
+
 # www goes to the main domain
 www.toprakkilic.com {
 	import headers

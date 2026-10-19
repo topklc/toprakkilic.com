@@ -1,0 +1,52 @@
+# /etc/radicale/config
+
+[server]
+# Loopback only; Caddy is the public face
+hosts = 127.0.0.1:5232, [::1]:5232
+max_connections = 20
+# 100 MB — contacts with photos can get large
+max_content_length = 100000000
+timeout = 30
+
+[auth]
+type = htpasswd
+htpasswd_filename = /etc/radicale/users
+# Reads the hash type per line (bcrypt, sha512, …) — works with htpasswd -B or -5
+htpasswd_encryption = autodetect
+# Delay after failed login (seconds) — basic brute-force throttle
+delay = 2
+# Cache login checks so repeated client polling doesn't re-hash every request
+cache_logins = true
+cache_successful_logins_expiry = 15
+cache_failed_logins_expiry = 90
+realm = Radicale - Password Required
+
+[rights]
+# Each user sees only /<username>/ — what Apple/DAVx5 auto-discovery expects
+type = owner_only
+
+[storage]
+type = multifilesystem
+filesystem_folder = /var/lib/radicale/collections
+# Create a default calendar + address book for every new user on first login
+predefined_collections = {
+    "calendar": {
+      "D:displayname": "Calendar",
+      "tag": "VCALENDAR",
+      "C:supported-calendar-component-set": "VEVENT,VTODO,VJOURNAL"
+    },
+    "contacts": {
+      "D:displayname": "Contacts",
+      "tag": "VADDRESSBOOK"
+    }
+  }
+# Optional: version every change in git. Uncomment after `git init` as the radicale user.
+#hook = git add -A && (git diff --cached --quiet || git commit -m "Changes by \"%(user)s\"")
+
+[web]
+# Built-in UI for creating/managing collections
+type = internal
+
+[logging]
+level = info
+mask_passwords = true
