@@ -104,6 +104,8 @@ radicale.toprakkilic.com {
 # wavelog
 log.toprakkilic.com {
     root * /srv/www/wavelog
+	@blocked path /.git/* /application/* /system/* /backup/* /updates/*
+    respond @blocked 404
     php_fastcgi unix//run/php/php8.4-fpm.sock
     file_server
 }
