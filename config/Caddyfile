@@ -101,6 +101,13 @@ radicale.toprakkilic.com {
 	reverse_proxy 127.0.0.1:5232
 }
 
+# wavelog
+log.toprakkilic.com {
+    root * /srv/www/wavelog
+    php_fastcgi unix//run/php/php8.4-fpm.sock
+    file_server
+}
+
 # kanboard
 kanboard.toprakkilic.com {
 	root * /srv/www/kanboard

@@ -52,5 +52,8 @@ radicale IN CNAME toprakkilic.com.
 ; kanboard
 kanboard IN CNAME toprakkilic.com.
 
+; wavelog
+log IN CNAME toprakkilic.com.
+
 ; verification
 534437865a24bf563fd2b28c5b9147ce99f80e8c  IN TXT  "fccbd6554b77d45ec9472009225b3c1f8d36a756"
