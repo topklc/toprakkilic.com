@@ -1,0 +1,16 @@
+# ns1
+sudo cat /etc/knot/keys.conf            # copy the whole block
+
+# ns2
+sudo install -m 640 -o root -g knot /dev/null /etc/knot/keys.conf   # create first
+sudo tee /etc/knot/keys.conf > /dev/null                            # then paste, press Enter, then Ctrl-D
+sudo knotc -c /etc/knot/knot.conf conf-check
+sudo systemctl restart knot
+
+# ns1 after ns2
+sudo knotc -c /etc/knot/knot.conf conf-check
+sudo systemctl restart knot
+sleep 3
+sudo -u knot keymgr toprakkilic.com. ds
+kdig toprakkilic.com DS +short
+sudo knotc zone-ksk-submitted toprakkilic.com
