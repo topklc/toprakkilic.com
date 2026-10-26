@@ -49,9 +49,6 @@ openpgpkey IN CNAME  toprakkilic.com.
 ; radicale
 radicale IN CNAME toprakkilic.com.
 
-; kanboard
-kanboard IN CNAME toprakkilic.com.
-
 ; wavelog
 log IN CNAME toprakkilic.com.
 
