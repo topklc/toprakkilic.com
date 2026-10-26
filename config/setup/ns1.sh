@@ -1,16 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+[[ $EUID -eq 0 ]] || { echo "run as root... "; exit 1; }
 
 # installing
-
-## install precs
-apt install gpg curl -y
-
-## caddy setup
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
-chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-chmod o+r /etc/apt/sources.list.d/caddy-stable.list
 
 ## knot setup
 wget -O /usr/share/keyrings/cznic-labs-pkg.gpg https://pkg.labs.nic.cz/gpg
@@ -20,14 +12,10 @@ echo "deb [signed-by=/usr/share/keyrings/cznic-labs-pkg.gpg] https://pkg.labs.ni
 apt update
 apt upgrade -y
 apt install -y knot knot-dnssecutils knot-dnsutils knot-keymgr debian-keyring debian-archive-keyring apt-transport-https ca-certificates
-[ -d /srv/www/toprakkilic.com/.git ] || git clone https://github.com/topklc/toprakkilic.com /srv/www/toprakkilic.com
 
 # security config
 
 ## firewall
-ufw allow 22/tcp
-ufw allow 80/tcp
-ufw allow 443
 ufw allow 53
 systemctl restart ufw
 
@@ -64,14 +52,3 @@ read -r
 echo "update dnssec records and press enter to continue..."
 keymgr toprakkilic.com. ds
 read -r
-
-# verification
-read -rp "verify NOW ssh admin@<ip> works before closing this terminal... [y/N] " ok
-if [[ "$ok" == [yY] ]]; then
-passwd -l root
-echo "root locked... " 
-sleep 5
-kill -HUP $PPID
-else
-echo "root NOT locked, when verified, run sudo passwd -l root... "
-fi

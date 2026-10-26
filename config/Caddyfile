@@ -22,10 +22,6 @@ toprakkilic.com {
 	encode
 	import headers
 
-	# exempt kanboard (it sends its own csp)
-	@site not path /kanboard /kanboard/*
-	import csp @site
-
 	# directory listing for /files/, plain file server for everything else
 	file_server /files/* {
 		browse /srv/www/toprakkilic.com/config/browse.html

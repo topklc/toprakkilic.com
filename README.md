@@ -6,7 +6,7 @@ This is my personal website, along with the server that runs it and an authorita
 
 Paste this into a terminal to setup the domain:
 ```
-wget https://raw.githubusercontent.com/topklc/toprakkilic.com/main/config/setup.sh && bash setup.sh
+wget https://raw.githubusercontent.com/topklc/toprakkilic.com/main/config/setup/base.sh && bash setup.sh
 ```
 **DO NOT PRESS CTRL+C TO COPY! DO CTRL+SHIFT+C**
 

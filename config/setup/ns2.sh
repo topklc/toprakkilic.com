@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
 [[ $EUID -eq 0 ]] || { echo "run as root... "; exit 1; }
 
 REPO_RAW="https://raw.githubusercontent.com/topklc/toprakkilic.com/main/config"
@@ -29,10 +28,9 @@ echo "deb [signed-by=/usr/share/keyrings/cznic-labs-pkg.gpg] https://pkg.labs.ni
   > /etc/apt/sources.list.d/cznic-labs-knot-dns.list
 
 ## software
-apt update
+apt update 
 apt upgrade -y
-apt install -y fail2ban ufw unattended-upgrades knot knot-dnssecutils knot-dnsutils knot-keymgr \
-  debian-keyring debian-archive-keyring fastfetch
+apt install -y fail2ban ufw unattended-upgrades knot knot-dnssecutils knot-dnsutils knot-keymgr debian-keyring debian-archive-keyring fastfetch
 
 # security config
 
