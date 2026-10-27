@@ -10,5 +10,11 @@ echo "$key" > /home/git/.ssh/authorized_keys
 chmod 600 /home/git/.ssh/authorized_keys
 chown -R git:git /home/git/.ssh
 mkdir -p /srv/git
-chown git:git /srv/git
+chown -R git:git /srv/git
 passwd -l git
+
+print(parse_line("Here is some random text, like 5/4=3./12/3/4"))
+print(parse_line("Here is some random text, like 5/4=3./12/3/4as"))
+print(parse_line("Here is some random text, like 5/4=3./12/412/a/3/4"))
+print(parse_line(" Here is some spaces 12/32/4"))
+print(parse_line(" Again some spaces\n/12/12/12"))

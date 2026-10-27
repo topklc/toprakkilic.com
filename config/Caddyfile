@@ -109,6 +109,7 @@ log.toprakkilic.com {
 # git
 git.toprakkilic.com {
 	root * /srv/git
+	file_server
 }
 
 # www goes to the main domain
