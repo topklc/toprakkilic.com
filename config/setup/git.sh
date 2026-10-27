@@ -11,4 +11,4 @@ chmod 600 /home/git/.ssh/authorized_keys
 chown -R git:git /home/git/.ssh
 mkdir -p /srv/git
 chown git:git /srv/git
-passwd -l gitpasswd -l git
+passwd -l git
