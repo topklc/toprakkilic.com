@@ -5,7 +5,7 @@ $TTL 3600
                 2026080901  ; serial (dateserial format)
                 3600        ; refresh (NOTIFY makes this a fallback)
                 900         ; retry
-                1209600     ; expire  14 days
+                1209600     ; expire 14 days
                 3600        ; negative-response TTL
                 )
 
@@ -52,5 +52,7 @@ radicale IN CNAME toprakkilic.com.
 ; wavelog
 log IN CNAME toprakkilic.com.
 
+; git
+git IN CNAME toprakkilic.com.
 ; verification
 534437865a24bf563fd2b28c5b9147ce99f80e8c  IN TXT  "fccbd6554b77d45ec9472009225b3c1f8d36a756"

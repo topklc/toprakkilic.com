@@ -106,6 +106,11 @@ log.toprakkilic.com {
     file_server
 }
 
+# git
+git.toprakkilic.com {
+	root * /srv/git
+}
+
 # www goes to the main domain
 www.toprakkilic.com {
 	import headers
