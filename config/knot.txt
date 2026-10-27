@@ -2,8 +2,8 @@
 sudo cat /etc/knot/keys.conf            # copy the whole block
 
 # ns2
-sudo install -m 640 -o root -g knot /dev/null /etc/knot/keys.conf   # create first
-sudo tee /etc/knot/keys.conf > /dev/null                            # then paste, press Enter, then Ctrl-D
+sudo install -m 640 -o root -g knot /dev/null /etc/knot/keys.conf # create first
+sudo tee /etc/knot/keys.conf > /dev/null # paste, enter, ctrl-d
 sudo knotc -c /etc/knot/knot.conf conf-check
 sudo systemctl restart knot
 
