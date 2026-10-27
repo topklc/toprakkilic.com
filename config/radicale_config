@@ -1,5 +1,5 @@
 # /etc/radicale/config
-# Radicale 3.5+ on Debian 13 — behind Caddy at https://cal.toprakkilic.com
+# Radicale 3.5+ on Debian 13 — behind Caddy at https://radicale.toprakkilic.com
 
 [server]
 # Loopback only; Caddy is the public face

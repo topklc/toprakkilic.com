@@ -19,14 +19,6 @@ apt install -y knot knot-dnssecutils knot-dnsutils knot-keymgr debian-keyring de
 ufw allow 53
 systemctl restart ufw
 
-# website init
-chown -R admin:admin /srv/www/toprakkilic.com
-chown -R root:root /etc/caddy
-chmod 755 /etc/caddy
-install -m 640 -o root -g caddy /srv/www/toprakkilic.com/config/Caddyfile /etc/caddy/Caddyfile
-usermod -aG www-data caddy
-systemctl enable --now php8.4-fpm caddy
-systemctl restart caddy
 # dns
 
 ## tsig keygen for zone transfers
